@@ -5,10 +5,11 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Card" parent="." instance=ExtResource("1_8uu4h")]
-
-[node name="Card2" parent="." instance=ExtResource("1_8uu4h")]
-position = Vector2(315, 17)
-
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("2_2bkmx")
+
+[node name="Card" parent="CardManager" instance=ExtResource("1_8uu4h")]
+position = Vector2(135, 189)
+
+[node name="Card2" parent="CardManager" instance=ExtResource("1_8uu4h")]
+position = Vector2(1018, 467)
