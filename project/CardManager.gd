@@ -1,6 +1,7 @@
 extends Node2D
 
 const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_CARD_SLOT = 2
 
 var card_being_dragged : Node2D
 var screen_size : Vector2
@@ -30,7 +31,8 @@ func _input(event: InputEvent) -> void:
 			if card:
 				start_drag(card)
 		else:
-			finish_drag()
+			if card_being_dragged:
+				finish_drag()
 
 func start_drag(card: Node2D):
 	card.scale = Vector2(1, 1)
@@ -38,6 +40,12 @@ func start_drag(card: Node2D):
 
 func finish_drag():
 	card_being_dragged.scale = Vector2(1.05, 1.05)
+	var card_slot_found = raycast_check_for_card_slot()
+	if card_slot_found and not card_slot_found.card_in_slot:
+		# Card dropped in empty slot.
+		card_being_dragged.position = card_slot_found.position
+		card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+		card_slot_found.card_in_slot = true
 	card_being_dragged = null
 
 
@@ -69,6 +77,19 @@ func highlight_card(card: Node2D, hovered: bool):
 	else:
 		card.scale = Vector2(1, 1)
 		card.z_index = 1
+
+
+func raycast_check_for_card_slot() -> Variant:
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_CARD_SLOT
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		var slot : Node2D = result[0].collider.get_parent()
+		return slot
+	return null
 
 
 func raycast_check_for_card() -> Variant:
