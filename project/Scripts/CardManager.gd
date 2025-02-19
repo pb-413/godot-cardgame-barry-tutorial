@@ -12,6 +12,8 @@ var player_hand_reference
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	player_hand_reference = $"../PlayerHand"
+	$"../InputManager".connect("left_mouse_button_released",
+							   on_left_click_released)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,18 +25,6 @@ func _process(delta: float) -> void:
 			clamp(mouse_pos.y, 0, screen_size.y)
 		)
 
-
-func _input(event: InputEvent) -> void:
-	if ( event is InputEventMouseButton
-		 and event.button_index == MOUSE_BUTTON_LEFT ):
-		if event.pressed:
-			# Raycast check for card
-			var card = raycast_check_for_card()
-			if card:
-				start_drag(card)
-		else:
-			if card_being_dragged:
-				finish_drag()
 
 func start_drag(card: Node2D):
 	card.scale = Vector2(1, 1)
@@ -57,6 +47,11 @@ func finish_drag():
 func connect_card_signals(card):
 	card.connect("hovered", on_hover_over_card)
 	card.connect("hovered_off", on_hover_off_card)
+
+
+func on_left_click_released():
+	if card_being_dragged:
+		finish_drag()
 
 
 func on_hover_over_card(card):

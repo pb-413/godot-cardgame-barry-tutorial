@@ -7,6 +7,7 @@
 size = Vector2(249, 348.5)
 
 [node name="Card" type="Node2D"]
+position = Vector2(150, 890)
 script = ExtResource("1_wsc5r")
 
 [node name="CardImage" type="Sprite2D" parent="."]
