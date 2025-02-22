@@ -20,12 +20,12 @@ func _input(event: InputEvent) -> void:
 		 and event.button_index == MOUSE_BUTTON_LEFT ):
 		if event.pressed:
 			emit_signal("left_mouse_button_clicked")
-			racast_at_cursor()
+			raycast_at_cursor()
 		else:
 			emit_signal("left_mouse_button_released")
 
 
-func racast_at_cursor():
+func raycast_at_cursor():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
