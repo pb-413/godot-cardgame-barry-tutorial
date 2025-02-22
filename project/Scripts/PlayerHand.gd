@@ -34,6 +34,12 @@ func calculate_card_position(index):
 
 
 func animate_card_to_position(card, new_position, speed=DEFAULT_CARD_MOVE_SPEED):
+	# This function has a default speed,
+	# but it is so far always passed a speed from callers.
+	# This is because they *also* have speed as a param:
+	# - add_card_to_hand
+	# - update_hand_positions
+	# Should this function *not* have a default?
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "position", new_position, speed)
 
