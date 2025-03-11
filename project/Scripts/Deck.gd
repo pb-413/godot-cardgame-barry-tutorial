@@ -1,14 +1,16 @@
 extends Node2D
 
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
-const CARD_DRAW_SPEED = 1
+const CARD_DRAW_SPEED = .3
 
-var player_deck = ["Knight", "Knight", "Knight",]
+var player_deck = ["Knight", "Archer", "Demon",]
+var card_database_reference
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     # print($Area2D.collision_mask)
     $RichTextLabel.text = str(player_deck.size())
+    card_database_reference = load("res://Resources/CardDatabase.tres")
 
 
 func draw_card():
