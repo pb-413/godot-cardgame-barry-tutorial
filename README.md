@@ -6,6 +6,9 @@
 3. Card Slots - [Last Commit](https://github.com/pb-413/godot-cardgame-barry-tutorial/commit/5f09671a4962f6785e8685c53dd26ae059d4e6de)
 4. Hand - [Last Commit](https://github.com/pb-413/godot-cardgame-barry-tutorial/commit/f049f1f4e5e00019a3f0b19d43db82dcf10ace7d)
 5. Deck - [Pull Request](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/2)
+6. Unique Cards & Card Flip Animation
+    1. Unique Cards [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/4)
+    2. Card Flip Animation [PR]()
 
 ## Resources
 ### Episode 1 Assets

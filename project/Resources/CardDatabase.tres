@@ -1,0 +1,8 @@
+[gd_resource type="JSON" format=3 uid="uid://djierowhvwglm"]
+
+[resource]
+data = {
+    "Archer":   { "Attack": 1.0, "Health": 1.0 },
+    "Demon":    { "Attack": 5.0, "Health": 7.0 },
+    "Knight":   { "Attack": 2.0, "Health": 3.0 }
+}
