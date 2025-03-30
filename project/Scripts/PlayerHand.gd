@@ -1,6 +1,6 @@
 extends Node2D
 
-const CARD_WIDTH = 200
+const CARD_WIDTH = 250
 const HAND_Y_POSITION = 890
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 var player_hand = []
@@ -28,8 +28,12 @@ func update_hand_positions(speed=DEFAULT_CARD_MOVE_SPEED):
 
 
 func calculate_card_position(index):
-    var x_offset = (player_hand.size() - 1) * CARD_WIDTH
-    var x_position = center_screen_x + index * CARD_WIDTH - x_offset / 2
+    # To add a space between cards without scaling them,
+    # add a padding value.
+    var double_pad_propotion = 1.0 + (1.0/16)
+    var fake_width = CARD_WIDTH * double_pad_propotion
+    var x_offset = (player_hand.size() - 1) * fake_width
+    var x_position = center_screen_x + index * fake_width - x_offset / 2
     return x_position
 
 
