@@ -33,3 +33,4 @@ func draw_card():
     $"../CardManager".add_child(new_card)
     new_card.name = "card"
     $"../PlayerHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
+    new_card.get_node("AnimationPlayer").play("card_flip")
