@@ -10,7 +10,7 @@ data = {
 "Attack": 5.0,
 "Health": 7.0
 },
-"Kight": {
+"Knight": {
 "Attack": 2.0,
 "Health": 3.0
 }
