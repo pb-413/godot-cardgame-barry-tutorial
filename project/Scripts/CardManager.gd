@@ -2,6 +2,8 @@ extends Node2D
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
+const INIT_CARD_SCALE = Vector2(0.9, 0.9)
+const HIGHLIGHT_CARD_SCALE = Vector2(1.05, 1.05)
 
 var card_being_dragged : Node2D
 var screen_size : Vector2
@@ -27,11 +29,11 @@ func _process(delta: float) -> void:
 
 
 func start_drag(card: Node2D):
-    card.scale = Vector2(1, 1)
+    card.scale = INIT_CARD_SCALE
     card_being_dragged = card
 
 func finish_drag():
-    card_being_dragged.scale = Vector2(1.05, 1.05)
+    card_being_dragged.scale = HIGHLIGHT_CARD_SCALE
     var card_slot_found = raycast_check_for_card_slot()
     if card_slot_found and not card_slot_found.card_in_slot:
         player_hand_reference.remove_card_from_hand(card_being_dragged)
@@ -72,10 +74,10 @@ func on_hover_off_card(card):
 
 func highlight_card(card: Node2D, hovered: bool):
     if hovered:
-        card.scale = Vector2(1.05, 1.05)
+        card.scale = HIGHLIGHT_CARD_SCALE
         card.z_index = 2
     else:
-        card.scale = Vector2(1, 1)
+        card.scale = INIT_CARD_SCALE
         card.z_index = 1
 
 
