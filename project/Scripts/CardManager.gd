@@ -2,7 +2,7 @@ extends Node2D
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
-const INIT_CARD_SCALE = Vector2(0.9, 0.9)
+const INIT_CARD_SCALE = Vector2(1.0, 1.0)
 const HIGHLIGHT_CARD_SCALE = Vector2(1.05, 1.05)
 
 var card_being_dragged : Node2D
