@@ -8,7 +8,7 @@
 5. Deck - [Pull Request](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/2)
 6. Unique Cards & Card Flip Animation
     1. Unique Cards [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/4)
-    2. Card Flip Animation [PR]()
+    2. Card Flip Animation [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/5)
 
 ## Resources
 ### Episode 1 Assets
