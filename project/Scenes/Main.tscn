@@ -19,7 +19,8 @@ script = ExtResource("1_5kc25")
 script = ExtResource("2_7tv27")
 
 [node name="Deck" type="Node2D" parent="."]
-position = Vector2(150, 890)
+position = Vector2(140, 955)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("4_0mr2l")
 
 [node name="Sprite2D" type="Sprite2D" parent="Deck"]
@@ -48,7 +49,21 @@ text = "0"
 script = ExtResource("6_t7lv7")
 
 [node name="CardSlot" parent="." instance=ExtResource("3_vek35")]
-position = Vector2(200, 265)
+position = Vector2(960, 750)
+scale = Vector2(0.5, 0.5)
 
 [node name="CardSlot2" parent="." instance=ExtResource("3_vek35")]
-position = Vector2(538, 270)
+position = Vector2(1100, 750)
+scale = Vector2(0.5, 0.5)
+
+[node name="CardSlot3" parent="." instance=ExtResource("3_vek35")]
+position = Vector2(1240, 750)
+scale = Vector2(0.5, 0.5)
+
+[node name="CardSlot4" parent="." instance=ExtResource("3_vek35")]
+position = Vector2(820, 750)
+scale = Vector2(0.5, 0.5)
+
+[node name="CardSlot5" parent="." instance=ExtResource("3_vek35")]
+position = Vector2(680, 750)
+scale = Vector2(0.5, 0.5)
