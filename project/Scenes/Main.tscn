@@ -67,3 +67,10 @@ scale = Vector2(0.5, 0.5)
 [node name="CardSlot5" parent="." instance=ExtResource("3_vek35")]
 position = Vector2(680, 750)
 scale = Vector2(0.5, 0.5)
+
+[node name="EndTurnButton" type="Button" parent="."]
+offset_left = 300.0
+offset_top = 570.0
+offset_right = 378.0
+offset_bottom = 601.0
+text = "End Turn"

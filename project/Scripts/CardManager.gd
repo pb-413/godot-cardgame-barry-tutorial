@@ -4,6 +4,7 @@ const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_SLOT = 2
 const INIT_CARD_SCALE = Vector2(.6, .6)
 const HIGHLIGHT_CARD_SCALE = Vector2(.65, .65)
+const SLOTTED_CARD_SCALE = Vector2(.5, .5)
 
 var card_being_dragged : Node2D
 var screen_size : Vector2
@@ -36,8 +37,11 @@ func finish_drag():
     card_being_dragged.scale = HIGHLIGHT_CARD_SCALE
     var card_slot_found = raycast_check_for_card_slot()
     if card_slot_found and not card_slot_found.card_in_slot:
-        player_hand_reference.remove_card_from_hand(card_being_dragged)
         # Card dropped in empty slot.
+        card_being_dragged.scale = SLOTTED_CARD_SCALE
+        card_being_dragged.in_slot = card_slot_found
+        card_being_dragged.z_index = -1 # under cards in hand
+        player_hand_reference.remove_card_from_hand(card_being_dragged)
         card_being_dragged.position = card_slot_found.position
         card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
         card_slot_found.card_in_slot = true
@@ -63,7 +67,7 @@ func on_hover_over_card(card):
 
 
 func on_hover_off_card(card):
-    if !card_being_dragged:
+    if !card_being_dragged and !card.in_slot:
         highlight_card(card, false)
         var new_card_hovered = raycast_check_for_card()
         if new_card_hovered:
