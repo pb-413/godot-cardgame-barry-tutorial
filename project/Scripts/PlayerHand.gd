@@ -12,7 +12,7 @@ func _ready() -> void:
     # CENTER_SCREEN_X = get_viewport().size.x / 2
     # print(CENTER_SCREEN_X)
     # On my Laptop (1366 x 768): 682 (half of my screen/resolution width)
-    # On my Desktop (): ? (half my screen/resolution width)
+    # On my Desktop (2560 x 1440): 1279 (almost half my screen/resolution width)
     # CENTER_SCREEN_X = 960
     # I had to hardcode this because I was using these settings:
     # - Window Stretch Mode "Viewport"
