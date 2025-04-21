@@ -10,6 +10,7 @@ var card_being_dragged : Node2D
 var screen_size : Vector2
 var is_hovering_on_card
 var player_hand_reference
+var has_played_monster_card_per_turn : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,15 +39,19 @@ func finish_drag():
     var card_slot_found = raycast_check_for_card_slot()
     if card_slot_found and not card_slot_found.card_in_slot:
         # Card dropped in empty slot.
-        card_being_dragged.scale = SLOTTED_CARD_SCALE
-        card_being_dragged.in_slot = card_slot_found
-        card_being_dragged.z_index = -1 # under cards in hand
-        player_hand_reference.remove_card_from_hand(card_being_dragged)
-        card_being_dragged.position = card_slot_found.position
-        card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
-        card_slot_found.card_in_slot = true
-    else:
-        player_hand_reference.add_card_to_hand(card_being_dragged)
+        if card_being_dragged.card_type == card_slot_found.card_slot_type:
+            if !has_played_monster_card_per_turn:
+                card_being_dragged.scale = SLOTTED_CARD_SCALE
+                card_being_dragged.in_slot = card_slot_found
+                card_being_dragged.z_index = -1 # under cards in hand
+                player_hand_reference.remove_card_from_hand(card_being_dragged)
+                card_being_dragged.position = card_slot_found.position
+                card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
+                card_slot_found.card_in_slot = true
+                card_being_dragged = null
+                is_hovering_on_card = false
+                return
+    player_hand_reference.add_card_to_hand(card_being_dragged)
     card_being_dragged = null
 
 
