@@ -4,14 +4,17 @@
 data = {
 "Archer": {
 "Attack": 1.0,
-"Health": 1.0
+"Health": 1.0,
+"Type": "Monster"
 },
 "Demon": {
 "Attack": 5.0,
-"Health": 7.0
+"Health": 7.0,
+"Type": "Monster"
 },
 "Knight": {
 "Attack": 2.0,
-"Health": 3.0
+"Health": 3.0,
+"Type": "Monster"
 }
 }

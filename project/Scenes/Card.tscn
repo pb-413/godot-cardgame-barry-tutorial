@@ -165,7 +165,8 @@ _data = {
 }
 
 [node name="Card" type="Node2D"]
-position = Vector2(150, 890)
+position = Vector2(140, 955)
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_wsc5r")
 
 [node name="CardBackImage" type="Sprite2D" parent="."]
