@@ -1,14 +1,24 @@
 extends Node2D
 
-const CARD_WIDTH = 250
-const HAND_Y_POSITION = 890
+const CARD_WIDTH = 150
+const HAND_Y_POSITION = 955
 const DEFAULT_CARD_MOVE_SPEED = 0.1
 var player_hand = []
-var center_screen_x
+var CENTER_SCREEN_X = 960 # aka 1920 / 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    center_screen_x = get_viewport().size.x / 2
+    pass
+    # CENTER_SCREEN_X = get_viewport().size.x / 2
+    # print(CENTER_SCREEN_X)
+    # On my Laptop (1366 x 768): 682 (half of my screen/resolution width)
+    # On my Desktop (2560 x 1440): 1279 (almost half my screen/resolution width)
+    # CENTER_SCREEN_X = 960
+    # I had to hardcode this because I was using these settings:
+    # - Window Stretch Mode "Viewport"
+    # - Window Aspect "Expand"
+    # get_viewport() must be tied to the real hardware / window resolution
+    # rather than relative to the scaling I'm doing.
 
 
 func add_card_to_hand(card, speed=DEFAULT_CARD_MOVE_SPEED):
@@ -33,7 +43,7 @@ func calculate_card_position(index):
     var double_pad_propotion = 1.0 + (1.0/16)
     var fake_width = CARD_WIDTH * double_pad_propotion
     var x_offset = (player_hand.size() - 1) * fake_width
-    var x_position = center_screen_x + index * fake_width - x_offset / 2
+    var x_position = CENTER_SCREEN_X + index * fake_width - x_offset / 2
     return x_position
 
 
