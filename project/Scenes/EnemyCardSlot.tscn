@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://gdxppdo86l20"]
+[gd_scene load_steps=2 format=3 uid="uid://gdxppdo86l20"]
 
-[ext_resource type="Script" path="res://Scripts/CardSlot.gd" id="1_rryry"]
 [ext_resource type="Texture2D" uid="uid://dbvdok451yk65" path="res://Assets/Slot.png" id="2_v38kf"]
 
 [node name="CardSlot" type="Node2D"]
-script = ExtResource("1_rryry")
 
 [node name="CardSlotImage" type="Sprite2D" parent="."]
 texture = ExtResource("2_v38kf")
