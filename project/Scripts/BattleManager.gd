@@ -20,10 +20,16 @@ func enemy_turn():
     $"../EndTurnButton".disabled = true
     $"../EndTurnButton".visible = false
 
-    $"../EnemyDeck".draw_card()
     # Enemy takes time to think.
     battle_timer.start()
     await battle_timer.timeout
+
+    # Deck has cards.
+    if $"../EnemyDeck".enemy_deck.size() != 0:
+        $"../EnemyDeck".draw_card()
+        # Enemy takes time to think with new card.
+        battle_timer.start()
+        await battle_timer.timeout
 
     # Check if free monster card slots; end turn otherwise.
     if empty_monster_card_slots.size() == 0:

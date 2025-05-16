@@ -33,7 +33,7 @@ func calculate_card_position(index):
     var double_pad_propotion = 1.0 + (1.0/16)
     var fake_width = CARD_WIDTH * double_pad_propotion
     var x_offset = (player_hand.size() - 1) * fake_width
-    var x_position = CENTER_SCREEN_X + index * fake_width - x_offset / 2
+    var x_position = CENTER_SCREEN_X - index * fake_width + x_offset / 2
     return x_position
 
 

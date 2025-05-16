@@ -8,7 +8,6 @@ var enemy_deck = [
     "Knight", "Archer", "Demon", "Knight", "Knight", "Knight", "Knight"
 ]
 var card_database_reference : Dictionary
-var has_drawn_for_turn : bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,20 +17,14 @@ func _ready() -> void:
     card_database_reference = load("res://Resources/CardDatabase.tres").data
     for i in range(STARTING_HAND_SIZE):
         draw_card()
-        has_drawn_for_turn = false
-    has_drawn_for_turn = true
 
 
 func draw_card():
-    if has_drawn_for_turn:
-        return
-    has_drawn_for_turn = true
     var card_drawn_name: String = enemy_deck[0]
     enemy_deck.erase(card_drawn_name)
 
-    # Out of cards.
+    # Hide deck if drew last card.
     if enemy_deck.size() == 0:
-        $Area2D/CollisionShape2D.disabled = true
         $Sprite2D.visible = false
         $RichTextLabel.visible = false
 
