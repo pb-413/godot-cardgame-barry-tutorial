@@ -12,7 +12,7 @@ var deck_reference
 
 func _ready() -> void:
     card_manager_reference = $"../CardManager"
-    deck_reference = $"../Deck"
+    deck_reference = $"../PlayerDeck"
 
 
 func _input(event: InputEvent) -> void:

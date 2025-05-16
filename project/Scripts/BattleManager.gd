@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func enemy_turn():
     $"../EndTurnButton".disabled = true
-    $"../EndTurnButton".visibile = false
+    $"../EndTurnButton".visible = false
 
     $"../EnemyDeck".draw_card()
     # Enemy takes time to think.
@@ -37,5 +37,5 @@ func _on_end_turn_button_pressed() -> void:
     # Player is up next.
     # Reset end turn button.
     $"../EndTurnButton".disabled = false
-    $"../EndTurnButton".visibile = true
+    $"../EndTurnButton".visible = true
     # Reset plater deck draw
