@@ -1,6 +1,6 @@
 extends Node2D
 
-const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
+const CARD_SCENE_PATH = "res://Scenes/EnemyCard.tscn"
 const CARD_DRAW_SPEED = .3
 const STARTING_HAND_SIZE = 4
 
@@ -46,4 +46,5 @@ func draw_card():
     $"../CardManager".add_child(new_card)
     new_card.name = "card"
     $"../EnemyHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
-    new_card.get_node("AnimationPlayer").play("card_flip")
+    # Enemy card is hidden in hand!
+    # new_card.get_node("AnimationPlayer").play("card_flip")
