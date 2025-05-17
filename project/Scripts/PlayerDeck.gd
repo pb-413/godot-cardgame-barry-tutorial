@@ -47,3 +47,6 @@ func draw_card():
     new_card.name = "card"
     $"../PlayerHand".add_card_to_hand(new_card, CARD_DRAW_SPEED)
     new_card.get_node("AnimationPlayer").play("card_flip")
+
+func reset_draw():
+    has_drawn_for_turn = false

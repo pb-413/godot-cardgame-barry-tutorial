@@ -22,6 +22,7 @@ size = Vector2(249, 350)
 script = ExtResource("1_5kc25")
 
 [node name="EnemyHand" type="Node2D" parent="."]
+z_index = -2
 position = Vector2(960, 360)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("2_75hf2")
@@ -141,42 +142,52 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("8_s06at")
 
 [node name="EnemyCardSlot1" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(960, 360)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot2" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(1100, 360)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot3" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(1240, 360)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot4" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(820, 360)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot5" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(680, 360)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot6" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(960, 180)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot7" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(1100, 180)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot8" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(1240, 180)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot9" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(820, 180)
 scale = Vector2(0.5, 0.5)
 
 [node name="EnemyCardSlot10" parent="CardSlots" instance=ExtResource("9_qt82k")]
+z_index = -2
 position = Vector2(680, 180)
 scale = Vector2(0.5, 0.5)
 
