@@ -1,10 +1,13 @@
 extends Node
 
 var battle_timer : Timer
+var end_turn : Button
 var empty_monster_card_slots = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+    end_turn = $"../EndTurnButton"
+
     battle_timer = $"../BattleTimer"
     battle_timer.one_shot = true
     battle_timer.wait_time = 1.0
@@ -16,10 +19,21 @@ func _ready() -> void:
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
 
 
-func enemy_turn():
-    $"../EndTurnButton".disabled = true
-    $"../EndTurnButton".visible = false
+func _on_end_turn_button_pressed() -> void:
+    # Hide end turn button.
+    end_turn.disabled = true
+    end_turn.visible = false
 
+    enemy_turn()
+
+    # Player is up next.
+    # Reset end turn button.
+    end_turn.visible = true
+    end_turn.disabled = false
+    # Reset player deck draw
+
+
+func enemy_turn():
     # Enemy takes time to think.
     battle_timer.start()
     await battle_timer.timeout
@@ -36,12 +50,3 @@ func enemy_turn():
         return
 
     # Play the card in hand with highest attack.
-
-
-func _on_end_turn_button_pressed() -> void:
-    enemy_turn()
-    # Player is up next.
-    # Reset end turn button.
-    $"../EndTurnButton".disabled = false
-    $"../EndTurnButton".visible = true
-    # Reset plater deck draw
