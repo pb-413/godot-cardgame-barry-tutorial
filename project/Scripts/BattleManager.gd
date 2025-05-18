@@ -28,7 +28,7 @@ func _on_end_turn_button_pressed() -> void:
     end_turn.disabled = true
     end_turn.visible = false
 
-    enemy_turn()
+    await enemy_turn()
 
     # Player is up next.
     # Reset end turn button.
