@@ -50,7 +50,7 @@ func enemy_turn():
         battle_timer.start()
         await battle_timer.timeout
 
-    play_monster_algo_strongest(empty_monster_card_slots)
+    await play_monster_algo_strongest(empty_monster_card_slots)
 
 
 ## Play the card in hand with highest attack.
@@ -82,3 +82,7 @@ func play_monster_algo_strongest(slots: Array):
     tween2.tween_property(card_with_highest_atk, "scale", SMALL_CARD_SCALE, CARD_MOVE_SPEED)
     card_with_highest_atk.get_node("AnimationPlayer").play("card_flip")
     $"../EnemyHand".remove_card_from_hand(card_with_highest_atk)
+
+    # Finish playing monster.
+    battle_timer.start()
+    await battle_timer.timeout
