@@ -12,6 +12,7 @@ var is_hovering_on_card
 var player_hand_reference
 var has_played_monster_card_per_turn : bool = false
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     screen_size = get_viewport_rect().size
@@ -34,6 +35,7 @@ func start_drag(card: Node2D):
     card.scale = INIT_CARD_SCALE
     card_being_dragged = card
 
+
 func finish_drag():
     card_being_dragged.scale = HIGHLIGHT_CARD_SCALE
     var card_slot_found = raycast_check_for_card_slot()
@@ -51,6 +53,8 @@ func finish_drag():
                 card_being_dragged = null
                 is_hovering_on_card = false
                 has_played_monster_card_per_turn = true
+                # Toggle play indicator to red (1).
+                $"../PlayIndicator/Area2D/AnimatedSprite2D".frame = 1
                 return
     player_hand_reference.add_card_to_hand(card_being_dragged)
     card_being_dragged = null
@@ -131,5 +135,8 @@ func get_card_with_highest_z_index(cards: Array):
 
     return highest_z_card
 
+
 func reset_played_monster():
     has_played_monster_card_per_turn = false
+    # Toggle play indicator to green (0).
+    $"../PlayIndicator/Area2D/AnimatedSprite2D".frame = 0

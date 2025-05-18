@@ -26,6 +26,8 @@ func draw_card():
     if has_drawn_for_turn:
         return
     has_drawn_for_turn = true
+    # Toggle draw indicator to red (0).
+    $"../DrawIndicator/Area2D/AnimatedSprite2D".frame = 0
     var card_drawn_name: String = player_deck[0]
     player_deck.erase(card_drawn_name)
 
@@ -34,6 +36,8 @@ func draw_card():
         $Area2D/CollisionShape2D.disabled = true
         $Sprite2D.visible = false
         $RichTextLabel.visible = false
+        # Hide the draw indicator as well.
+        $"../DrawIndicator".visible = false
 
     $RichTextLabel.text = str(player_deck.size())
     var card_scene = preload(CARD_SCENE_PATH)
@@ -50,3 +54,5 @@ func draw_card():
 
 func reset_draw():
     has_drawn_for_turn = false
+    # Toggle draw indicator to green (1).
+    $"../DrawIndicator/Area2D/AnimatedSprite2D".frame = 1

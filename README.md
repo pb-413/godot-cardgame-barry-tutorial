@@ -19,3 +19,6 @@
 [Archer asset by OcO](https://oco.itch.io/medieval-fantasy-character-pack-4)
 
 [Demon asset by Sven](https://sventhole.itch.io/flame-demons-64-x64)
+
+### Customization Assets
+[Simple Pixle Art Buttons by Sasurai](https://opengameart.org/content/simple-pixel-art-buttons)
