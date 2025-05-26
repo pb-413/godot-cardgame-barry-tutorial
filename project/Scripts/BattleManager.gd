@@ -7,6 +7,8 @@ const CARD_MOVE_SPEED = 0.2
 var battle_timer : Timer
 var end_turn : Button
 var empty_monster_card_slots : Array = []
+var enemy_monsters_on_field: Array = []
+var player_monsters_on_field: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -52,6 +54,14 @@ func enemy_turn():
 
     await play_monster_algo_strongest(empty_monster_card_slots)
 
+    if enemy_monsters_on_field.size() != 0:
+        var attackers = enemy_monsters_on_field.duplicate()
+        for card in attackers:
+            if player_monsters_on_field.size() != 0:
+                target_attack()
+            else:
+                direct_attack()
+
 
 ## Play the card in hand with highest attack.
 func play_monster_algo_strongest(slots: Array):
@@ -82,7 +92,14 @@ func play_monster_algo_strongest(slots: Array):
     tween2.tween_property(card_with_highest_atk, "scale", SMALL_CARD_SCALE, CARD_MOVE_SPEED)
     card_with_highest_atk.get_node("AnimationPlayer").play("card_flip")
     $"../EnemyHand".remove_card_from_hand(card_with_highest_atk)
+    enemy_monsters_on_field.append(card_with_highest_atk)
 
     # Finish playing monster.
     battle_timer.start()
     await battle_timer.timeout
+
+func direct_attack():
+    print("direct attack")
+
+func target_attack():
+    print("target attack")
