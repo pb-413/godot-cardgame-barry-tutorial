@@ -223,4 +223,20 @@ scale = Vector2(0.8, 0.8)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayIndicator/Area2D"]
 sprite_frames = ExtResource("13_f05n5")
 
+[node name="PlayerHealth" type="RichTextLabel" parent="."]
+offset_left = 130.0
+offset_top = 630.0
+offset_right = 170.0
+offset_bottom = 670.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="EnemyHealth" type="RichTextLabel" parent="."]
+offset_left = 130.0
+offset_top = 430.0
+offset_right = 170.0
+offset_bottom = 470.0
+scale = Vector2(2, 2)
+text = "0"
+
 [connection signal="pressed" from="EndTurnButton" to="BattleManager" method="_on_end_turn_button_pressed"]

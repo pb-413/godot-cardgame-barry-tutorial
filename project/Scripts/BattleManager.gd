@@ -3,12 +3,26 @@ extends Node
 const EnemyCard = preload("res://Scripts/EnemyCard.gd")
 const SMALL_CARD_SCALE = Vector2(0.5, 0.5)
 const CARD_MOVE_SPEED = 0.2
+const STARTING_HEALTH = 10
 
 var battle_timer : Timer
 var end_turn : Button
 var empty_monster_card_slots : Array = []
 var enemy_monsters_on_field: Array = []
+var enemy_health
 var player_monsters_on_field: Array = []
+var player_health
+
+
+func update_player_hp(num: int):
+    player_health = num
+    $"../PlayerHealth".text = str(num)
+
+
+func update_enemy_hp(num: int):
+    enemy_health = num
+    $"../EnemyHealth".text = str(num)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,13 +30,15 @@ func _ready() -> void:
 
     battle_timer = $"../BattleTimer"
     battle_timer.one_shot = true
-    battle_timer.wait_time = 1.0
 
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot1")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot2")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot3")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot4")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
+
+    update_player_hp(STARTING_HEALTH)
+    update_enemy_hp(STARTING_HEALTH)
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -40,17 +56,16 @@ func _on_end_turn_button_pressed() -> void:
     $"../PlayerDeck".reset_draw()
     $"../CardManager".reset_played_monster()
 
+
 func enemy_turn():
     # Enemy takes time to think.
-    battle_timer.start()
-    await battle_timer.timeout
+    await sleep()
 
     # Deck has cards.
     if $"../EnemyDeck".enemy_deck.size() != 0:
         $"../EnemyDeck".draw_card()
         # Enemy takes time to think with new card.
-        battle_timer.start()
-        await battle_timer.timeout
+        await sleep()
 
     await play_monster_algo_strongest(empty_monster_card_slots)
 
@@ -60,7 +75,7 @@ func enemy_turn():
             if player_monsters_on_field.size() != 0:
                 target_attack()
             else:
-                direct_attack()
+                await direct_attack(card, "Enemy")
 
 
 ## Play the card in hand with highest attack.
@@ -93,13 +108,45 @@ func play_monster_algo_strongest(slots: Array):
     card_with_highest_atk.get_node("AnimationPlayer").play("card_flip")
     $"../EnemyHand".remove_card_from_hand(card_with_highest_atk)
     enemy_monsters_on_field.append(card_with_highest_atk)
+    card_with_highest_atk.in_slot = random_empty_slot
 
     # Finish playing monster.
-    battle_timer.start()
-    await battle_timer.timeout
+    await sleep()
 
-func direct_attack():
-    print("direct attack")
+
+func direct_attack(card, active_player):
+    var new_pos_y
+    if active_player == "Enemy":
+        new_pos_y = 1080
+    else:
+        new_pos_y = 0
+    var new_pos = Vector2(card.position.x, new_pos_y)
+
+    var old_z_index = card.z_index
+    card.z_index = 5
+
+    # Animate card to position (attack animation)
+    var tween = get_tree().create_tween()
+    tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
+    var WAIT_FOR_ATTACK_ANIMATION = 0.15
+    await sleep(WAIT_FOR_ATTACK_ANIMATION)
+
+    if active_player == "Enemy":
+        update_player_hp(max(0, player_health - card.attack))
+    else:
+        update_enemy_hp(max(0, enemy_health - card.attack))
+
+    var tween2 = get_tree().create_tween()
+    tween2.tween_property(card, "position", card.in_slot.position, CARD_MOVE_SPEED)
+    await sleep()
+
+    card.z_index = old_z_index
 
 func target_attack():
     print("target attack")
+
+
+func sleep(seconds=1.0):
+    battle_timer.wait_time = seconds
+    battle_timer.start()
+    await battle_timer.timeout
