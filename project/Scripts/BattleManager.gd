@@ -195,8 +195,10 @@ func destroy_card(card, card_owner: PLAYER):
     var new_pos
     if card_owner == PLAYER.SELF:
         new_pos = $"../PlayerDiscard".position
+        player_monsters_on_field.erase(card)
     else:
         new_pos = $"../EnemyDiscard".position
+        enemy_monsters_on_field.erase(card)
     var tween = get_tree().create_tween()
     tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
     # Remove card from slot, etc. cleanup.
