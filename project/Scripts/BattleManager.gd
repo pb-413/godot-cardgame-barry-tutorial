@@ -206,8 +206,6 @@ func destroy_card(card, card_owner: PLAYER):
         card.in_slot = null
     var tween = get_tree().create_tween()
     tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
-    # Remove card from slot, etc. cleanup.
-    # TODO left over from episode #9; covered in part 2?
 
 func sleep(seconds=1.0):
     battle_timer.wait_time = seconds
