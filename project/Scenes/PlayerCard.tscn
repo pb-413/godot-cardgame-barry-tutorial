@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ba127t8k4b0xh"]
 
-[ext_resource type="Texture2D" uid="uid://b1qx33fejlnx3" path="res://Assets/KnightCard.png" id="1_4fyd5"]
-[ext_resource type="Script" path="res://Scripts/Card.gd" id="1_wsc5r"]
-[ext_resource type="Texture2D" uid="uid://goc4ty4ti1m5" path="res://Assets/Deck.png" id="2_8c02y"]
+[ext_resource type="Script" path="res://Scripts/PlayerCard.gd" id="1_fc6ha"]
+[ext_resource type="Texture2D" uid="uid://goc4ty4ti1m5" path="res://Assets/Deck.png" id="2_sm1m5"]
+[ext_resource type="Texture2D" uid="uid://b1qx33fejlnx3" path="res://Assets/KnightCard.png" id="3_nixxo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pvoh4"]
 size = Vector2(248.889, 348.889)
@@ -167,14 +167,14 @@ _data = {
 [node name="Card" type="Node2D"]
 position = Vector2(140, 955)
 scale = Vector2(0.6, 0.6)
-script = ExtResource("1_wsc5r")
+script = ExtResource("1_fc6ha")
 
 [node name="CardBackImage" type="Sprite2D" parent="."]
-texture = ExtResource("2_8c02y")
+texture = ExtResource("2_sm1m5")
 
 [node name="CardImage" type="Sprite2D" parent="."]
 z_index = -1
-texture = ExtResource("1_4fyd5")
+texture = ExtResource("3_nixxo")
 
 [node name="Area2D" type="Area2D" parent="."]
 

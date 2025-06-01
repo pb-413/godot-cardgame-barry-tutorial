@@ -3,10 +3,29 @@ extends Node
 const EnemyCard = preload("res://Scripts/EnemyCard.gd")
 const SMALL_CARD_SCALE = Vector2(0.5, 0.5)
 const CARD_MOVE_SPEED = 0.2
+const STARTING_HEALTH = 10
+const WAIT_FOR_ATTACK_ANIMATION = 0.15
+const BATTLE_POS_OFFSET = 25
 
 var battle_timer : Timer
 var end_turn : Button
 var empty_monster_card_slots : Array = []
+var enemy_monsters_on_field: Array = []
+var enemy_health
+var player_monsters_on_field: Array = []
+var player_health
+
+enum PLAYER {SELF, ENEMY}
+
+func update_player_hp(num: int):
+    player_health = num
+    $"../PlayerHealth".text = str(num)
+
+
+func update_enemy_hp(num: int):
+    enemy_health = num
+    $"../EnemyHealth".text = str(num)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,13 +33,15 @@ func _ready() -> void:
 
     battle_timer = $"../BattleTimer"
     battle_timer.one_shot = true
-    battle_timer.wait_time = 1.0
 
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot1")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot2")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot3")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot4")
     empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
+
+    update_player_hp(STARTING_HEALTH)
+    update_enemy_hp(STARTING_HEALTH)
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -38,19 +59,27 @@ func _on_end_turn_button_pressed() -> void:
     $"../PlayerDeck".reset_draw()
     $"../CardManager".reset_played_monster()
 
+
 func enemy_turn():
     # Enemy takes time to think.
-    battle_timer.start()
-    await battle_timer.timeout
+    await sleep()
 
     # Deck has cards.
     if $"../EnemyDeck".enemy_deck.size() != 0:
         $"../EnemyDeck".draw_card()
         # Enemy takes time to think with new card.
-        battle_timer.start()
-        await battle_timer.timeout
+        await sleep()
 
     await play_monster_algo_strongest(empty_monster_card_slots)
+
+    if enemy_monsters_on_field.size() != 0:
+        var attackers = enemy_monsters_on_field.duplicate()
+        for card in attackers:
+            if player_monsters_on_field.size() != 0:
+                var target = player_monsters_on_field.pick_random()
+                await target_attack(card, target, PLAYER.ENEMY)
+            else:
+                await direct_attack(card, PLAYER.ENEMY)
 
 
 ## Play the card in hand with highest attack.
@@ -66,7 +95,7 @@ func play_monster_algo_strongest(slots: Array):
         return
 
     # Choose a slot to play in.
-    var random_empty_slot = slots[randi_range(0, num_empty_slots - 1)]
+    var random_empty_slot = slots.pick_random()
     slots.erase(random_empty_slot)
 
     # Choose a card to play.
@@ -82,7 +111,103 @@ func play_monster_algo_strongest(slots: Array):
     tween2.tween_property(card_with_highest_atk, "scale", SMALL_CARD_SCALE, CARD_MOVE_SPEED)
     card_with_highest_atk.get_node("AnimationPlayer").play("card_flip")
     $"../EnemyHand".remove_card_from_hand(card_with_highest_atk)
+    enemy_monsters_on_field.append(card_with_highest_atk)
+    card_with_highest_atk.in_slot = random_empty_slot
 
     # Finish playing monster.
+    await sleep()
+
+
+func direct_attack(card, active_player: PLAYER):
+    var new_pos_y
+    if active_player == PLAYER.ENEMY:
+        new_pos_y = 1080
+    else:
+        new_pos_y = 0
+    var new_pos = Vector2(card.position.x, new_pos_y)
+
+    var old_z_index = card.z_index
+    card.z_index = 5
+
+    # Animate card to position (attack animation)
+    var tween = get_tree().create_tween()
+    tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
+    await sleep(WAIT_FOR_ATTACK_ANIMATION)
+
+    if active_player == PLAYER.ENEMY:
+        update_player_hp(max(0, player_health - card.attack))
+    else:
+        update_enemy_hp(max(0, enemy_health - card.attack))
+
+    var tween2 = get_tree().create_tween()
+    tween2.tween_property(card, "position", card.in_slot.position, CARD_MOVE_SPEED)
+    card.z_index = old_z_index
+
+    await sleep()
+
+
+func target_attack(attacking_card, defending_card, active_player: PLAYER):
+    # Animation prep.
+    var new_pos = Vector2(
+        defending_card.position.x,
+        # TODO doesn't this sign depend on who the attacking player is?
+        defending_card.position.y + BATTLE_POS_OFFSET # + for the enemy attacking?
+    )
+    var old_z_index = attacking_card.z_index
+    attacking_card.z_index = 5
+    # Animate card to position (attack animation).
+    var tween = get_tree().create_tween()
+    tween.tween_property(attacking_card, "position", new_pos, CARD_MOVE_SPEED)
+    await sleep(WAIT_FOR_ATTACK_ANIMATION)
+
+    # Reset animation.
+    var tween2 = get_tree().create_tween()
+    tween2.tween_property(attacking_card, "position", attacking_card.in_slot.position, CARD_MOVE_SPEED)
+    attacking_card.z_index = old_z_index
+
+    # Card damage.
+    defending_card.health = max(0, defending_card.health - attacking_card.attack)
+    defending_card.get_node("Health").text = str(defending_card.health)
+    attacking_card.health = max(0, attacking_card.health - defending_card.attack)
+    attacking_card.get_node("Health").text = str(attacking_card.health)
+
+    await sleep()
+
+    # Destroy cards if health is 0.
+    var was_card_destroyed = false
+    if attacking_card.health == 0:
+        destroy_card(attacking_card, active_player)
+        was_card_destroyed = true
+    if defending_card.health == 0:
+        var defending_player
+        if active_player == PLAYER.ENEMY:
+            defending_player = PLAYER.SELF
+        else:
+            defending_player = PLAYER.ENEMY
+        destroy_card(defending_card, defending_player)
+        was_card_destroyed = true
+    if was_card_destroyed:
+        await sleep()
+
+
+func destroy_card(card, card_owner: PLAYER):
+    # Move to discard.
+    var new_pos
+    if card_owner == PLAYER.SELF:
+        new_pos = $"../PlayerDiscard".position
+        player_monsters_on_field.erase(card)
+        card.in_slot.card_in_slot = false
+        card.in_slot = null
+    else:
+        new_pos = $"../EnemyDiscard".position
+        enemy_monsters_on_field.erase(card)
+        # Enemy and player track empty slots differently!
+        empty_monster_card_slots.append(card.in_slot)
+        card.in_slot = null
+    var tween = get_tree().create_tween()
+    tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
+
+func sleep(seconds=1.0):
+    battle_timer.wait_time = seconds
     battle_timer.start()
     await battle_timer.timeout

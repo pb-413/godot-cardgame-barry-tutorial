@@ -34,8 +34,9 @@ func draw_card():
     var card_image_path = str("res://Assets/" + card_drawn_name + "Card.png")
     new_card.get_node("CardImage").texture = load(card_image_path)
     new_card.attack = card_database_reference[card_drawn_name]["Attack"]
+    new_card.health = card_database_reference[card_drawn_name]["Health"]
     new_card.get_node("Attack").text = str(new_card.attack)
-    new_card.get_node("Health").text = str(card_database_reference[card_drawn_name]["Health"])
+    new_card.get_node("Health").text = str(new_card.health)
     new_card.card_type = card_database_reference[card_drawn_name]["Type"]
     $"../CardManager".add_child(new_card)
     new_card.name = "card"
