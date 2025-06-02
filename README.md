@@ -12,6 +12,7 @@
 7. Opponent - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/6)
 8. Enemy AI - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/7)
 9. Attacking - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/8)
+10. Attacking (Part 2) - [PR]()
 
 ## Resources
 ### Episode 1 Assets
