@@ -5,6 +5,7 @@ const COLLISION_MASK_CARD_SLOT = 2
 const INIT_CARD_SCALE = Vector2(.6, .6)
 const HIGHLIGHT_CARD_SCALE = Vector2(.65, .65)
 const SLOTTED_CARD_SCALE = Vector2(.5, .5)
+const HIGHLIGHT_SELECTED = 20
 
 var card_being_dragged : Card
 var screen_size : Vector2
@@ -42,6 +43,12 @@ func card_clicked(card: Card):
 
 
 func player_attack(card: Card):
+    if (
+          card in battle_manager.player_cards_attacked_this_turn
+          or battle_manager.is_enemy_turn
+        ):
+        return
+
     var ACTIVE_PLAYER = battle_manager.PLAYER.SELF
     if battle_manager.enemy_monsters_on_field.size() == 0:
         battle_manager.direct_attack(card, ACTIVE_PLAYER)
@@ -52,21 +59,26 @@ func player_attack(card: Card):
 
 
 func select_card_for_battle(card: Card) -> Variant:
-    var HIGHLIGHT_ATTACKER = 20
     if selected_monster:
         # Un-highlight last pick.
-        selected_monster.position.y += HIGHLIGHT_ATTACKER
+        selected_monster.position.y += HIGHLIGHT_SELECTED
         if selected_monster == card:
             # De-select it.
             selected_monster = null
         else:
             # Select new attacker instead.
             selected_monster = card
-            card.position.y -= HIGHLIGHT_ATTACKER
+            card.position.y -= HIGHLIGHT_SELECTED
     else:
         selected_monster = card
-        card.position.y -= HIGHLIGHT_ATTACKER
+        card.position.y -= HIGHLIGHT_SELECTED
     return selected_monster
+
+
+func unselect_selected_monster():
+    if selected_monster:
+        selected_monster.position.y += HIGHLIGHT_SELECTED
+        selected_monster = null
 
 
 func start_drag(card: Card):
@@ -87,6 +99,7 @@ func finish_drag():
                 player_hand_reference.remove_card_from_hand(card_being_dragged)
                 card_being_dragged.position = card_slot_found.position
                 card_slot_found.card_in_slot = true
+                card_slot_found.get_node("Area2D/CollisionShape2D").disabled = true
                 $"../BattleManager".player_monsters_on_field.append(card_being_dragged)
                 card_being_dragged = null
                 is_hovering_on_card = false
@@ -117,7 +130,7 @@ func on_hover_over_card(card: Card):
 
 
 func on_hover_off_card(card: Card):
-    if !card_being_dragged and !card.in_slot:
+    if !card_being_dragged and !card.in_slot and !card.is_defeated:
         highlight_card(card, false)
         var new_card_hovered = raycast_check_for_card()
         if new_card_hovered:
