@@ -6,11 +6,13 @@ const INIT_CARD_SCALE = Vector2(.6, .6)
 const HIGHLIGHT_CARD_SCALE = Vector2(.65, .65)
 const SLOTTED_CARD_SCALE = Vector2(.5, .5)
 
-var card_being_dragged : Node2D
+var card_being_dragged : Card
 var screen_size : Vector2
 var is_hovering_on_card
 var player_hand_reference
 var has_played_monster_card_per_turn : bool = false
+var battle_manager : Node
+var selected_monster: Card
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +21,7 @@ func _ready() -> void:
     player_hand_reference = $"../PlayerHand"
     $"../InputManager".connect("left_mouse_button_released",
                                on_left_click_released)
+    battle_manager = $"../BattleManager"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +34,42 @@ func _process(delta: float) -> void:
         )
 
 
-func start_drag(card: Node2D):
+func card_clicked(card: Card):
+    if card.in_slot:
+        player_attack(card)
+    else:
+        start_drag(card)
+
+
+func player_attack(card: Card):
+    var ACTIVE_PLAYER = battle_manager.PLAYER.SELF
+    if battle_manager.enemy_monsters_on_field.size() == 0:
+        battle_manager.direct_attack(card, ACTIVE_PLAYER)
+        return
+    else:
+        # card = select_card_for_battle(card)?
+        select_card_for_battle(card)
+
+
+func select_card_for_battle(card: Card) -> Variant:
+    var HIGHLIGHT_ATTACKER = 20
+    if selected_monster:
+        # Un-highlight last pick.
+        selected_monster.position.y += HIGHLIGHT_ATTACKER
+        if selected_monster == card:
+            # De-select it.
+            selected_monster = null
+        else:
+            # Select new attacker instead.
+            selected_monster = card
+            card.position.y -= HIGHLIGHT_ATTACKER
+    else:
+        selected_monster = card
+        card.position.y -= HIGHLIGHT_ATTACKER
+    return selected_monster
+
+
+func start_drag(card: Card):
     card.scale = INIT_CARD_SCALE
     card_being_dragged = card
 
@@ -48,7 +86,6 @@ func finish_drag():
                 card_being_dragged.z_index = -1 # under cards in hand
                 player_hand_reference.remove_card_from_hand(card_being_dragged)
                 card_being_dragged.position = card_slot_found.position
-                card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
                 card_slot_found.card_in_slot = true
                 $"../BattleManager".player_monsters_on_field.append(card_being_dragged)
                 card_being_dragged = null
@@ -71,13 +108,15 @@ func on_left_click_released():
         finish_drag()
 
 
-func on_hover_over_card(card):
+func on_hover_over_card(card: Card):
+    if card.in_slot:
+        return
     if !is_hovering_on_card:
         is_hovering_on_card = true
         highlight_card(card, true)
 
 
-func on_hover_off_card(card):
+func on_hover_off_card(card: Card):
     if !card_being_dragged and !card.in_slot:
         highlight_card(card, false)
         var new_card_hovered = raycast_check_for_card()
@@ -87,7 +126,7 @@ func on_hover_off_card(card):
             is_hovering_on_card = false
 
 
-func highlight_card(card: Node2D, hovered: bool):
+func highlight_card(card: Card, hovered: bool):
     if hovered:
         card.scale = HIGHLIGHT_CARD_SCALE
         card.z_index = 2
@@ -118,18 +157,18 @@ func raycast_check_for_card() -> Variant:
     var result = space_state.intersect_point(parameters)
     if result.size() > 0:
         #var card : Node2D = result[0].collider.get_parent()
-        var card = get_card_with_highest_z_index(result)
+        var card : Card = get_card_with_highest_z_index(result)
         return card
     return null
 
 
 func get_card_with_highest_z_index(cards: Array):
-    var highest_z_card : Node2D = cards[0].collider.get_parent()
+    var highest_z_card : Card = cards[0].collider.get_parent()
     var highest_z_index = highest_z_card.z_index
 
     # Loop over other cards
     for i in range(1, cards.size()):
-        var current_card : Node2D = cards[i].collider.get_parent()
+        var current_card : Card = cards[i].collider.get_parent()
         if current_card.z_index > highest_z_index:
             highest_z_card = current_card
             highest_z_index = current_card.z_index

@@ -197,15 +197,15 @@ func destroy_card(card, card_owner: PLAYER):
         new_pos = $"../PlayerDiscard".position
         player_monsters_on_field.erase(card)
         card.in_slot.card_in_slot = false
-        card.in_slot = null
     else:
         new_pos = $"../EnemyDiscard".position
         enemy_monsters_on_field.erase(card)
         # Enemy and player track empty slots differently!
         empty_monster_card_slots.append(card.in_slot)
-        card.in_slot = null
+    card.in_slot = null
     var tween = get_tree().create_tween()
     tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
+
 
 func sleep(seconds=1.0):
     battle_timer.wait_time = seconds
