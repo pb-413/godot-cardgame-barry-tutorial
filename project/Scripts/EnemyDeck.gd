@@ -5,7 +5,7 @@ const CARD_DRAW_SPEED = .3
 const STARTING_HAND_SIZE = 4
 
 var enemy_deck = [
-    "Knight", "Archer", "Demon", "Knight", "Knight", "Knight", "Knight"
+    "Knight", "Archer", "Knight", "Knight", "Knight", "Knight" #, "Demon"
 ]
 var card_database_reference : Dictionary
 

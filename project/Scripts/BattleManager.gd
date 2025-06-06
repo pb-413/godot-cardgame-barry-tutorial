@@ -16,6 +16,7 @@ var player_monsters_on_field: Array = []
 var player_health
 var player_cards_attacked_this_turn: Array = []
 var is_enemy_turn = false
+var is_player_attacking = false
 
 enum PLAYER {SELF, ENEMY}
 
@@ -52,15 +53,13 @@ func _on_end_turn_button_pressed() -> void:
 
     $"../CardManager".unselect_selected_monster()
     # Hide end turn button.
-    end_turn.disabled = true
-    end_turn.visible = false
+    toggle_end_turn_button()
 
     await enemy_turn()
 
     # Player is up next.
     # Reset end turn button.
-    end_turn.visible = true
-    end_turn.disabled = false
+    toggle_end_turn_button()
     # Reset player deck draw
     $"../PlayerDeck".reset_draw()
     $"../CardManager".reset_played_monster()
@@ -68,6 +67,15 @@ func _on_end_turn_button_pressed() -> void:
     player_cards_attacked_this_turn = []
 
     is_enemy_turn = false
+
+
+func toggle_end_turn_button():
+    if end_turn.disabled:
+        end_turn.disabled = false
+        end_turn.visible = true
+    else:
+        end_turn.disabled = true
+        end_turn.visible = false
 
 
 func enemy_turn():
@@ -133,6 +141,8 @@ func direct_attack(card: Card, active_player: PLAYER):
     if active_player == PLAYER.ENEMY:
         new_pos_y = 1080
     else:
+        is_player_attacking = true
+        toggle_end_turn_button()
         new_pos_y = 0
         player_cards_attacked_this_turn.append(card)
     var new_pos = Vector2(card.position.x, new_pos_y)
@@ -156,10 +166,17 @@ func direct_attack(card: Card, active_player: PLAYER):
 
     await sleep()
 
+    if is_player_attacking:
+        is_player_attacking = false
+        toggle_end_turn_button()
+
 
 func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
     if active_player == PLAYER.SELF:
+        is_player_attacking = true
+        toggle_end_turn_button()
         player_cards_attacked_this_turn.append(attacker)
+        $"../CardManager".selected_monster = null
     # Animation prep.
     var new_pos = Vector2(
         defender.position.x,
@@ -202,6 +219,10 @@ func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
     if was_card_destroyed:
         await sleep()
 
+    if is_player_attacking:
+        is_player_attacking = false
+        toggle_end_turn_button()
+
 
 func destroy_card(card: Card, card_owner: PLAYER):
     # Move to discard.
@@ -221,6 +242,15 @@ func destroy_card(card: Card, card_owner: PLAYER):
     card.in_slot = null
     var tween = get_tree().create_tween()
     tween.tween_property(card, "position", new_pos, CARD_MOVE_SPEED)
+
+
+func enemy_card_selected(defender: Card):
+    var attacker : Variant = $"../CardManager".selected_monster
+    var attack_ready = attacker and not is_player_attacking
+    var valid_defender = defender in enemy_monsters_on_field
+    if attack_ready and valid_defender:
+        $"../CardManager".selected_monster = null
+        target_attack(attacker, defender, PLAYER.SELF)
 
 
 func sleep(seconds=1.0):

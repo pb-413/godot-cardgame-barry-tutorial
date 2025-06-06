@@ -5,14 +5,17 @@ signal left_mouse_button_released
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_DECK = 4
+const COLLISION_MASK_ENEMY_CARD = 8 # layer/mask 4, value 8.
 
 var card_manager_reference
 var deck_reference
+var battle_manager_ref
 
 
 func _ready() -> void:
     card_manager_reference = $"../CardManager"
     deck_reference = $"../PlayerDeck"
+    battle_manager_ref = $"../BattleManager"
 
 
 func _input(event: InputEvent) -> void:
@@ -42,3 +45,8 @@ func raycast_at_cursor():
         elif result_mask == COLLISION_MASK_DECK:
             # Deck clicked.
             deck_reference.draw_card()
+        elif result_mask == COLLISION_MASK_ENEMY_CARD:
+            # Enemy card clicked.
+            var enemy_card_found = collider.get_parent()
+            if enemy_card_found:
+                battle_manager_ref.enemy_card_selected(enemy_card_found)
