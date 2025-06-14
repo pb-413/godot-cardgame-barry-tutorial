@@ -16,5 +16,10 @@ data = {
 "Attack": 2.0,
 "Health": 3.0,
 "Type": "Monster"
+},
+"Tornado": {
+"Attack": null,
+"Health": null,
+"Type": "Magic"
 }
 }
