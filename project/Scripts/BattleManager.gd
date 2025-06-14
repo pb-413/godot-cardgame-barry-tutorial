@@ -83,7 +83,7 @@ func enemy_turn():
     await sleep()
 
     # Deck has cards.
-    if $"../EnemyDeck".enemy_deck.size() != 0:
+    if $"../EnemyDeck".deck.size() != 0:
         $"../EnemyDeck".draw_card()
         # Enemy takes time to think with new card.
         await sleep()

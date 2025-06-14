@@ -12,6 +12,8 @@ var card_database_reference : Dictionary
 var card_scene : Resource
 var hand_node : Node2D
 
+
+## 'deck' must be defined in order to ready a Deck object.
 func _ready():
     deck.shuffle()
     $RichTextLabel.text = str(deck.size())
