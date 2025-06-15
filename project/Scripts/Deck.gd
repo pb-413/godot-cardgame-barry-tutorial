@@ -51,7 +51,6 @@ func draw_card() -> Variant:
     return new_card
 
 
-
 func hide_deck():
     $Sprite2D.visible = false
     $RichTextLabel.visible = false
