@@ -60,10 +60,9 @@ func _on_end_turn_button_pressed() -> void:
     # Player is up next.
     # Reset end turn button.
     toggle_end_turn_button()
-    # Reset player deck draw
+    # Reset player turn values.
     $"../PlayerDeck".reset_draw()
     $"../CardManager".reset_played_monster()
-    # Refresh attackers.
     player_cards_attacked_this_turn = []
 
     is_enemy_turn = false
@@ -83,7 +82,7 @@ func enemy_turn():
     await sleep()
 
     # Deck has cards.
-    if $"../EnemyDeck".enemy_deck.size() != 0:
+    if $"../EnemyDeck".deck.size() != 0:
         $"../EnemyDeck".draw_card()
         # Enemy takes time to think with new card.
         await sleep()
