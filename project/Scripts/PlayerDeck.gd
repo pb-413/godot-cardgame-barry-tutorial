@@ -3,7 +3,7 @@ extends Deck
 const CARD_SCENE_PATH = "res://Scenes/PlayerCard.tscn"
 
 var player_deck = [
-    "Knight", "Archer", "Demon", "Knight", "Knight", "Knight", "Tornado"
+    "Knight", "Archer", "Demon", "Knight", "Tornado", # "Knight", "Knight"
 ]
 var has_drawn_for_turn : bool = false
 

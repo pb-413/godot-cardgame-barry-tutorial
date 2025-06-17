@@ -50,7 +50,10 @@ func draw_card() -> Variant:
     else:
         new_card.get_node("Attack").visible = false
         new_card.get_node("Health").visible = false
-        new_card.get_node("Ability").text = card_database_reference[card_drawn_name]["Ability"]
+        new_card.get_node("Ability").text = card_database_reference[card_drawn_name]["Ability Text"]
+        var ability_script_path = card_database_reference[card_drawn_name]["Ability Script"]
+        if ability_script_path:
+            new_card.ability_script = load(ability_script_path).new()
     $"../CardManager".add_child(new_card)
     new_card.name = "card"
     hand_node.add_card_to_hand(new_card, CARD_DRAW_SPEED)

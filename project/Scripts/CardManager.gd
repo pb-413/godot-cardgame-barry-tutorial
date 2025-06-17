@@ -11,6 +11,7 @@ var card_being_dragged : Card
 var screen_size : Vector2
 var is_hovering_on_card
 var player_hand_reference
+var input_manager_reference
 var has_played_monster_card_per_turn : bool = false
 var battle_manager : Node
 var selected_monster: Card
@@ -20,8 +21,9 @@ var selected_monster: Card
 func _ready() -> void:
     screen_size = get_viewport_rect().size
     player_hand_reference = $"../PlayerHand"
-    $"../InputManager".connect("left_mouse_button_released",
-                               on_left_click_released)
+    input_manager_reference = $"../InputManager"
+    input_manager_reference.connect("left_mouse_button_released",
+                                    on_left_click_released)
     battle_manager = $"../BattleManager"
 
 
@@ -114,7 +116,9 @@ func finish_drag():
                 # Toggle play indicator to red (1).
                 $"../PlayIndicator/Area2D/AnimatedSprite2D".frame = 1
             else:
-                print("played magic card")
+                input_manager_reference.inputs_disabled = true
+                card_being_dragged.ability_script.trigger_ability(battle_manager, card_being_dragged)
+                input_manager_reference.inputs_disabled = false
             is_hovering_on_card = false
             card_being_dragged = null
             return
