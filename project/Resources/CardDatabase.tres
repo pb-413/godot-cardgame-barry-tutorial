@@ -5,21 +5,25 @@ data = {
 "Archer": {
 "Attack": 1.0,
 "Health": 1.0,
-"Type": "Monster"
+"Type": "Monster",
+"Ability": null
 },
 "Demon": {
 "Attack": 5.0,
 "Health": 7.0,
-"Type": "Monster"
+"Type": "Monster",
+"Ability": null
 },
 "Knight": {
 "Attack": 2.0,
 "Health": 3.0,
-"Type": "Monster"
+"Type": "Monster",
+"Ability": null
 },
 "Tornado": {
 "Attack": null,
 "Health": null,
-"Type": "Magic"
+"Type": "Magic",
+"Ability": "Deal 1 damage to all enemy cards"
 }
 }
