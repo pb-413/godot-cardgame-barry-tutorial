@@ -40,11 +40,20 @@ func draw_card() -> Variant:
     var new_card = card_scene.instantiate()
     var card_image_path = str("res://Assets/" + card_drawn_name + "Card.png")
     new_card.get_node("CardImage").texture = load(card_image_path)
-    new_card.attack = card_database_reference[card_drawn_name]["Attack"]
-    new_card.health = card_database_reference[card_drawn_name]["Health"]
-    new_card.get_node("Attack").text = str(new_card.attack)
-    new_card.get_node("Health").text = str(new_card.health)
     new_card.card_type = card_database_reference[card_drawn_name]["Type"]
+    if new_card.card_type == "Monster":
+        new_card.attack = card_database_reference[card_drawn_name]["Attack"]
+        new_card.health = card_database_reference[card_drawn_name]["Health"]
+        new_card.get_node("Attack").text = str(new_card.attack)
+        new_card.get_node("Health").text = str(new_card.health)
+        new_card.get_node("Ability").visible = false
+    else:
+        new_card.get_node("Attack").visible = false
+        new_card.get_node("Health").visible = false
+        new_card.get_node("Ability").text = card_database_reference[card_drawn_name]["Ability Text"]
+        var ability_script_path = card_database_reference[card_drawn_name]["Ability Script"]
+        if ability_script_path:
+            new_card.ability_script = load(ability_script_path).new()
     $"../CardManager".add_child(new_card)
     new_card.name = "card"
     hand_node.add_card_to_hand(new_card, CARD_DRAW_SPEED)

@@ -10,6 +10,7 @@ const COLLISION_MASK_ENEMY_CARD = 8 # layer/mask 4, value 8.
 var card_manager_reference
 var deck_reference
 var battle_manager_ref
+var inputs_disabled = false
 
 
 func _ready() -> void:
@@ -29,6 +30,9 @@ func _input(event: InputEvent) -> void:
 
 
 func raycast_at_cursor():
+    if inputs_disabled:
+        return
+
     var space_state = get_world_2d().direct_space_state
     var parameters = PhysicsPointQueryParameters2D.new()
     parameters.position = get_global_mouse_position()

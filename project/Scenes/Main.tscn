@@ -21,6 +21,9 @@ size = Vector2(249, 350)
 
 [node name="Main" type="Node2D"]
 
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("10_ntw0c")
+
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_5kc25")
 
@@ -200,9 +203,6 @@ offset_top = 570.0
 offset_right = 378.0
 offset_bottom = 601.0
 text = "End Turn"
-
-[node name="BattleManager" type="Node" parent="."]
-script = ExtResource("10_ntw0c")
 
 [node name="BattleTimer" type="Timer" parent="."]
 
