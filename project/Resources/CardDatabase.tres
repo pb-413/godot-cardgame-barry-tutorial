@@ -13,8 +13,8 @@ data = {
 "Attack": 5.0,
 "Health": 7.0,
 "Type": "Monster",
-"Ability Text": null,
-"Ability Script": null
+"Ability Text": "Attacks 2x per turn",
+"Ability Script": "res://Scripts/Abilities/AttackTwice.gd"
 },
 "Knight": {
 "Attack": 2.0,
