@@ -14,6 +14,7 @@
 9. Attacking - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/8)
 10. Attacking (Part 2) - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/9)
 11. Abilities - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/12)
+12. Special Effects - PR(TODO)
 
 ## Resources
 ### Episode 1 Assets
