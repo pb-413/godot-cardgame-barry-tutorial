@@ -16,7 +16,7 @@ var player_monsters_on_field: Array = []
 var player_health
 var player_cards_attacked_this_turn: Array = []
 var is_enemy_turn = false
-var is_player_attacking = false
+var input_manager_reference : Node
 
 enum PLAYER {SELF, ENEMY}
 
@@ -46,6 +46,8 @@ func _ready() -> void:
 
     update_player_hp(STARTING_HEALTH)
     update_enemy_hp(STARTING_HEALTH)
+
+    input_manager_reference = $"../InputManager"
 
 
 func _on_end_turn_button_pressed() -> void:
@@ -140,7 +142,7 @@ func direct_attack(card: Card, active_player: PLAYER):
     if active_player == PLAYER.ENEMY:
         new_pos_y = 1080
     else:
-        is_player_attacking = true
+        input_manager_reference.inputs_disabled = true
         toggle_end_turn_button()
         new_pos_y = 0
         player_cards_attacked_this_turn.append(card)
@@ -165,14 +167,14 @@ func direct_attack(card: Card, active_player: PLAYER):
 
     await sleep()
 
-    if is_player_attacking:
-        is_player_attacking = false
+    if input_manager_reference.inputs_disabled:
+        input_manager_reference.inputs_disabled = false
         toggle_end_turn_button()
 
 
 func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
     if active_player == PLAYER.SELF:
-        is_player_attacking = true
+        input_manager_reference.inputs_disabled = true
         toggle_end_turn_button()
         player_cards_attacked_this_turn.append(attacker)
         $"../CardManager".selected_monster = null
@@ -218,8 +220,8 @@ func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
     if was_card_destroyed:
         await sleep()
 
-    if is_player_attacking:
-        is_player_attacking = false
+    if input_manager_reference.inputs_disabled:
+        input_manager_reference.inputs_disabled = false
         toggle_end_turn_button()
 
 
@@ -245,7 +247,8 @@ func destroy_card(card: Card, card_owner: PLAYER):
 
 func enemy_card_selected(defender: Card):
     var attacker : Variant = $"../CardManager".selected_monster
-    var attack_ready = attacker and not is_player_attacking
+    var is_player_acting = input_manager_reference.inputs_disabled
+    var attack_ready = attacker and not is_player_acting
     var valid_defender = defender in enemy_monsters_on_field
     if attack_ready and valid_defender:
         $"../CardManager".selected_monster = null

@@ -38,9 +38,6 @@ func _process(delta: float) -> void:
 
 
 func card_clicked(card: Card):
-    if battle_manager.is_player_attacking:
-        return
-
     if card.in_slot:
         player_attack(card)
     else:
