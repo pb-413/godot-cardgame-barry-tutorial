@@ -1,5 +1,7 @@
 # godot-cardgame-barry-tutorial
 
+Not sure what version of Godot Barry was running, but I performed the tutorial with [Godot 4.3](https://godotengine.org/releases/4.3/).
+
 ## Episodes
 1. Dragging Cards - [Last Commit](https://github.com/pb-413/godot-cardgame-barry-tutorial/commit/ef206238b71a884a9fb768e4acdd34757a73ebba)
 2. Card Hover Effect - [Pull Request](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/1)

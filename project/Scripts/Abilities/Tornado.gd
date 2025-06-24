@@ -1,7 +1,11 @@
-extends Node
+extends TriggeredAbility
 
 
 const TORNADO_DAMAGE = 1
+
+
+func _init() -> void:
+    trigger_type = TRIGGER.PLAYED
 
 
 func trigger_ability(battle_manager, triggering_card: Card):

@@ -10,4 +10,4 @@ var card_type : String
 var attack : int
 var health : int
 var is_defeated : bool = false
-var ability_script
+var ability_script : TriggeredAbility

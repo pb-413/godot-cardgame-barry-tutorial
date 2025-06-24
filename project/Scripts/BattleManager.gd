@@ -138,6 +138,7 @@ func play_monster_algo_strongest(slots: Array):
 
 
 func direct_attack(card: Card, active_player: PLAYER):
+    # TODO rename card to attacker like in targetted attack func?
     var new_pos_y
     if active_player == PLAYER.ENEMY:
         new_pos_y = 1080
@@ -166,6 +167,10 @@ func direct_attack(card: Card, active_player: PLAYER):
     card.z_index = old_z_index
 
     await sleep()
+
+    if active_player == PLAYER.SELF and card.ability_script:
+        if card.ability_script.trigger_type == TriggeredAbility.TRIGGER.ATTACK:
+            await card.ability_script.trigger_ability(self, card)
 
     if input_manager_reference.inputs_disabled:
         input_manager_reference.inputs_disabled = false
@@ -219,6 +224,10 @@ func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
         was_card_destroyed = true
     if was_card_destroyed:
         await sleep()
+
+    if active_player == PLAYER.SELF and attacker.ability_script:
+        if attacker.ability_script.trigger_type == TriggeredAbility.TRIGGER.ATTACK:
+            await attacker.ability_script.trigger_ability(self, attacker)
 
     if input_manager_reference.inputs_disabled:
         input_manager_reference.inputs_disabled = false
