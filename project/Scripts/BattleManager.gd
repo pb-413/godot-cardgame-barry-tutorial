@@ -225,7 +225,7 @@ func target_attack(attacker: Card, defender: Card, active_player: PLAYER):
     if was_card_destroyed:
         await sleep()
 
-    if active_player == PLAYER.SELF and attacker.ability_script:
+    if active_player == PLAYER.SELF and attacker.ability_script and not attacker.is_defeated:
         if attacker.ability_script.trigger_type == TriggeredAbility.TRIGGER.ATTACK:
             await attacker.ability_script.trigger_ability(self, attacker)
 
