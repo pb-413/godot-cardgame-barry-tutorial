@@ -28,3 +28,8 @@ Not sure what version of Godot Barry was running, but I performed the tutorial w
 
 ### Customization Assets
 [Simple Pixle Art Buttons by Sasurai](https://opengameart.org/content/simple-pixel-art-buttons)
+
+### Forums, Discussions, Docs
+[Best Practices for GDScript Code Architecture with Abstract Classes and Node Inheritance](https://forum.godotengine.org/t/best-practices-for-gdscript-code-architecture-with-abstract-classes-and-node-inheritance/42659)
+
+[GDScript reference | Inheritance](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#inheritance)
