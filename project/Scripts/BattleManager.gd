@@ -30,6 +30,9 @@ func update_enemy_hp(num: int):
     enemy_health = num
     $"../EnemyHealth".text = str(num)
 
+func damage_enemy_hp(amount: int):
+    update_enemy_hp(max(0, enemy_health - amount))
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

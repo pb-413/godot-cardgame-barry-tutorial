@@ -6,8 +6,8 @@ data = {
 "Attack": 1.0,
 "Health": 1.0,
 "Type": "Monster",
-"Ability Text": null,
-"Ability Script": null
+"Ability Text": "Deal 1 dmg to enemy player",
+"Ability Script": "res://Scripts/Abilities/Arrow.gd"
 },
 "Demon": {
 "Attack": 5.0,
@@ -27,7 +27,7 @@ data = {
 "Attack": null,
 "Health": null,
 "Type": "Magic",
-"Ability Text": "Deal 1 damage to all enemy cards",
+"Ability Text": "Deal 1 dmg to all enemy cards",
 "Ability Script": "res://Scripts/Abilities/Tornado.gd"
 }
 }

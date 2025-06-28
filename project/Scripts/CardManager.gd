@@ -125,10 +125,12 @@ func finish_drag():
         has_played_monster_card_per_turn = true
         # Toggle play indicator to red (1).
         $"../PlayIndicator/Area2D/AnimatedSprite2D".frame = 1
-    else:
-        input_manager_reference.inputs_disabled = true
-        card_being_dragged.ability_script.trigger_ability(battle_manager, card_being_dragged)
-        input_manager_reference.inputs_disabled = false
+
+    if card_being_dragged.ability_script:
+        if card_being_dragged.ability_script.trigger_type == TriggeredAbility.TRIGGER.PLAYED:
+            input_manager_reference.inputs_disabled = true
+            card_being_dragged.ability_script.trigger_ability(battle_manager, card_being_dragged)
+            input_manager_reference.inputs_disabled = false
 
     is_hovering_on_card = false
     card_being_dragged = null

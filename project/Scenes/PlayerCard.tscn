@@ -202,7 +202,7 @@ text = "0"
 [node name="Ability" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
 offset_left = -79.0
-offset_top = 130.0
+offset_top = 120.0
 offset_right = 71.0
 offset_bottom = 172.0
 text = "Default text"
