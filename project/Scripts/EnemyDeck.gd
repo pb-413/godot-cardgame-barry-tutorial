@@ -17,3 +17,9 @@ func _ready() -> void:
     hand_node = $"../EnemyHand"
 
     super()
+
+
+func draw_card():
+    var card : Card = super()
+    if card:
+        card.get_node("Ability").visible = false

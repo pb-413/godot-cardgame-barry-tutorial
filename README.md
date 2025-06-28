@@ -1,5 +1,7 @@
 # godot-cardgame-barry-tutorial
 
+Not sure what version of Godot Barry was running, but I performed the tutorial with [Godot 4.3](https://godotengine.org/releases/4.3/).
+
 ## Episodes
 1. Dragging Cards - [Last Commit](https://github.com/pb-413/godot-cardgame-barry-tutorial/commit/ef206238b71a884a9fb768e4acdd34757a73ebba)
 2. Card Hover Effect - [Pull Request](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/1)
@@ -14,6 +16,7 @@
 9. Attacking - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/8)
 10. Attacking (Part 2) - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/9)
 11. Abilities - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/12)
+12. Special Effects - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/13)
 
 ## Resources
 ### Episode 1 Assets
@@ -25,3 +28,8 @@
 
 ### Customization Assets
 [Simple Pixle Art Buttons by Sasurai](https://opengameart.org/content/simple-pixel-art-buttons)
+
+### Forums, Discussions, Docs
+[Best Practices for GDScript Code Architecture with Abstract Classes and Node Inheritance](https://forum.godotengine.org/t/best-practices-for-gdscript-code-architecture-with-abstract-classes-and-node-inheritance/42659)
+
+[GDScript reference | Inheritance](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#inheritance)
