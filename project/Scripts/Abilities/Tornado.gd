@@ -6,6 +6,7 @@ const TORNADO_DAMAGE = 1
 
 func _init() -> void:
     trigger_type = TRIGGER.PLAYED
+    needs_reset = false
 
 
 func trigger_ability(battle_manager, triggering_card: Card):

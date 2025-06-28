@@ -65,6 +65,9 @@ func _on_end_turn_button_pressed() -> void:
     # Reset player turn values.
     $"../PlayerDeck".reset_draw()
     $"../CardManager".reset_played_monster()
+    for card in player_cards_attacked_this_turn:
+        if card.ability_script and card.ability_script.needs_reset:
+            card.ability_script.end_turn_reset()
     player_cards_attacked_this_turn = []
 
     is_enemy_turn = false

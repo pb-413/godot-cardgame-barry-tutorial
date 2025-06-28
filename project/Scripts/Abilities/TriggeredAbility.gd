@@ -6,6 +6,7 @@ extends Node
 enum TRIGGER {PLAYED, ATTACK}
 
 var trigger_type : TRIGGER
+var needs_reset : bool
 
 
 func _init() -> void:
