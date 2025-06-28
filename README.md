@@ -16,7 +16,7 @@ Not sure what version of Godot Barry was running, but I performed the tutorial w
 9. Attacking - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/8)
 10. Attacking (Part 2) - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/9)
 11. Abilities - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/12)
-12. Special Effects - PR(TODO)
+12. Special Effects - [PR](https://github.com/pb-413/godot-cardgame-barry-tutorial/pull/13)
 
 ## Resources
 ### Episode 1 Assets
