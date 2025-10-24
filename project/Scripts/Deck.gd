@@ -19,8 +19,9 @@ func _ready():
     $RichTextLabel.text = str(deck.size())
     card_database_reference = load(CARD_DATABASE_PATH).data
 
-    for i in range(STARTING_HAND_SIZE):
-        draw_card()
+    # TODO Game setup/starting state.
+    # for i in range(STARTING_HAND_SIZE):
+    #     draw_card()
 
 
 func draw_card() -> Variant:

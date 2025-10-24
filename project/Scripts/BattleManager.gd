@@ -28,7 +28,9 @@ func update_player_hp(num: int):
 
 func update_enemy_hp(num: int):
     enemy_health = num
-    $"../EnemyHealth".text = str(num)
+    # Enemey Health is no longer accessbile relative to Player Battle manager
+    # TODO Game setup/starting state.
+    #$"../EnemyHealth".text = str(num)
 
 func damage_enemy_hp(amount: int):
     update_enemy_hp(max(0, enemy_health - amount))
@@ -41,11 +43,13 @@ func _ready() -> void:
     battle_timer = $"../BattleTimer"
     battle_timer.one_shot = true
 
-    empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot1")
-    empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot2")
-    empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot3")
-    empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot4")
-    empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
+    # Enemy Card Slots are no longer accessible relative to Player Battle manager
+    # TODO Game setup/starting state.
+    #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot1")
+    #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot2")
+    #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot3")
+    #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot4")
+    #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
 
     update_player_hp(STARTING_HEALTH)
     update_enemy_hp(STARTING_HEALTH)

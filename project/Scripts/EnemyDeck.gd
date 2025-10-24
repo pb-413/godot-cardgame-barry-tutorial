@@ -3,7 +3,8 @@ extends Deck
 const CARD_SCENE_PATH = "res://Scenes/EnemyCard.tscn"
 
 var enemy_deck = [
-    "Knight", "Archer", "Knight", "Knight", "Knight", "Knight" #, "Demon"
+     "Archer", "Demon", "Tornado", "Knight",
+     "Knight", "Knight", "Knight", "Knight"
 ]
 
 
