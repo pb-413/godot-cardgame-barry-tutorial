@@ -12,31 +12,6 @@
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_i6rn6")
 
-[node name="EnemyHand" type="Node2D" parent="."]
-z_index = -2
-position = Vector2(960, 360)
-scale = Vector2(0.5, 0.5)
-script = ExtResource("2_6jodh")
-
-[node name="EnemyDeck" type="Node2D" parent="."]
-position = Vector2(1780, 125)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("3_vidf8")
-
-[node name="Sprite2D" type="Sprite2D" parent="EnemyDeck"]
-z_index = -2
-texture = ExtResource("4_b4hhd")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="EnemyDeck"]
-modulate = Color(0, 0, 0, 1)
-z_index = -2
-offset_left = -11.0
-offset_top = -47.0
-offset_right = 29.0
-offset_bottom = -7.0
-scale = Vector2(2, 2)
-text = "0"
-
 [node name="CardSlots" type="Node2D" parent="."]
 
 [node name="EnemyCardSlot1" parent="CardSlots" instance=ExtResource("8_wfafq")]
@@ -89,11 +64,22 @@ z_index = -2
 position = Vector2(680, 180)
 scale = Vector2(0.5, 0.5)
 
-[node name="EnemyHealth" type="RichTextLabel" parent="."]
-offset_left = 130.0
-offset_top = 430.0
-offset_right = 170.0
-offset_bottom = 470.0
+[node name="EnemyDeck" type="Node2D" parent="."]
+position = Vector2(1780, 125)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_vidf8")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyDeck"]
+z_index = -2
+texture = ExtResource("4_b4hhd")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EnemyDeck"]
+modulate = Color(0, 0, 0, 1)
+z_index = -2
+offset_left = -11.0
+offset_top = -47.0
+offset_right = 29.0
+offset_bottom = -7.0
 scale = Vector2(2, 2)
 text = "0"
 
@@ -104,3 +90,17 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="EnemyDiscard"]
 texture = ExtResource("9_32cdx")
+
+[node name="EnemyHand" type="Node2D" parent="."]
+z_index = -2
+position = Vector2(960, 360)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("2_6jodh")
+
+[node name="EnemyHealth" type="RichTextLabel" parent="."]
+offset_left = 130.0
+offset_top = 430.0
+offset_right = 170.0
+offset_bottom = 470.0
+scale = Vector2(2, 2)
+text = "0"

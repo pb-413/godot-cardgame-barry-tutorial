@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cd6kejt11g0ge"]
+[gd_scene load_steps=14 format=3 uid="uid://cd6kejt11g0ge"]
 
+[ext_resource type="Script" path="res://Scripts/BattleManager.gd" id="1_264nd"]
 [ext_resource type="Script" path="res://Scripts/CardManager.gd" id="1_jvkq7"]
 [ext_resource type="Script" path="res://Scripts/PlayerHand.gd" id="2_m8s8u"]
 [ext_resource type="Script" path="res://Scripts/PlayerDeck.gd" id="3_8rc1f"]
@@ -17,41 +18,13 @@ size = Vector2(249, 350)
 
 [node name="PlayerField" type="Node2D"]
 
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("1_264nd")
+
+[node name="BattleTimer" type="Timer" parent="."]
+
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_jvkq7")
-
-[node name="PlayerHand" type="Node2D" parent="."]
-script = ExtResource("2_m8s8u")
-
-[node name="PlayerDeck" type="Node2D" parent="."]
-position = Vector2(140, 955)
-scale = Vector2(0.6, 0.6)
-script = ExtResource("3_8rc1f")
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayerDeck"]
-z_index = -2
-texture = ExtResource("4_tbor2")
-
-[node name="Area2D" type="Area2D" parent="PlayerDeck"]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_u2wah")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck"]
-modulate = Color(0, 0, 0, 1)
-z_index = -2
-offset_left = -11.0
-offset_top = -47.0
-offset_right = 29.0
-offset_bottom = -7.0
-scale = Vector2(2, 2)
-text = "0"
-
-[node name="InputManager" type="Node2D" parent="."]
-script = ExtResource("5_hga7e")
 
 [node name="CardSlots" type="Node2D" parent="."]
 
@@ -115,15 +88,6 @@ position = Vector2(680, 750)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("8_l86ml")
 
-[node name="EndTurnButton" type="Button" parent="."]
-offset_left = 300.0
-offset_top = 570.0
-offset_right = 378.0
-offset_bottom = 601.0
-text = "End Turn"
-
-[node name="BattleTimer" type="Timer" parent="."]
-
 [node name="DrawIndicator" type="Node2D" parent="."]
 position = Vector2(140, 830)
 scale = Vector2(0.8, 0.8)
@@ -133,20 +97,40 @@ scale = Vector2(0.8, 0.8)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DrawIndicator/Area2D"]
 sprite_frames = ExtResource("10_bxvon")
 
-[node name="PlayIndicator" type="Node2D" parent="."]
-position = Vector2(960, 465)
-scale = Vector2(0.8, 0.8)
+[node name="EndTurnButton" type="Button" parent="."]
+offset_left = 300.0
+offset_top = 570.0
+offset_right = 378.0
+offset_bottom = 601.0
+text = "End Turn"
 
-[node name="Area2D" type="Area2D" parent="PlayIndicator"]
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("5_hga7e")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayIndicator/Area2D"]
-sprite_frames = ExtResource("11_rfw7b")
+[node name="PlayerDeck" type="Node2D" parent="."]
+position = Vector2(140, 955)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_8rc1f")
 
-[node name="PlayerHealth" type="RichTextLabel" parent="."]
-offset_left = 130.0
-offset_top = 630.0
-offset_right = 170.0
-offset_bottom = 670.0
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDeck"]
+z_index = -2
+texture = ExtResource("4_tbor2")
+
+[node name="Area2D" type="Area2D" parent="PlayerDeck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_u2wah")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck"]
+modulate = Color(0, 0, 0, 1)
+z_index = -2
+offset_left = -11.0
+offset_top = -47.0
+offset_right = 29.0
+offset_bottom = -7.0
 scale = Vector2(2, 2)
 text = "0"
 
@@ -157,3 +141,23 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerDiscard"]
 texture = ExtResource("12_mwvs2")
+
+[node name="PlayerHand" type="Node2D" parent="."]
+script = ExtResource("2_m8s8u")
+
+[node name="PlayerHealth" type="RichTextLabel" parent="."]
+offset_left = 130.0
+offset_top = 630.0
+offset_right = 170.0
+offset_bottom = 670.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="PlayIndicator" type="Node2D" parent="."]
+position = Vector2(960, 465)
+scale = Vector2(0.8, 0.8)
+
+[node name="Area2D" type="Area2D" parent="PlayIndicator"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayIndicator/Area2D"]
+sprite_frames = ExtResource("11_rfw7b")
