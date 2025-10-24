@@ -98,10 +98,12 @@ scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("10_bxvon")
 
 [node name="EndTurnButton" type="Button" parent="."]
+visible = false
 offset_left = 300.0
 offset_top = 570.0
 offset_right = 378.0
 offset_bottom = 601.0
+disabled = true
 text = "End Turn"
 
 [node name="InputManager" type="Node2D" parent="."]
