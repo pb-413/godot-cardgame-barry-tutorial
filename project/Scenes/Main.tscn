@@ -1,10 +1,32 @@
 [gd_scene load_steps=3 format=3 uid="uid://dct70tba5rujv"]
 
-[ext_resource type="PackedScene" uid="uid://boe8fjvquyikp" path="res://Scenes/EnemyField.tscn" id="1_uwbjw"]
+[ext_resource type="Script" path="res://Scripts/Multiplayer.gd" id="1_mspg5"]
 [ext_resource type="PackedScene" uid="uid://cd6kejt11g0ge" path="res://Scenes/PlayerField.tscn" id="2_2pnp5"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_mspg5")
+player_field_scene = ExtResource("2_2pnp5")
 
-[node name="EnemyScene" parent="." instance=ExtResource("1_uwbjw")]
+[node name="JoinButton" type="Button" parent="."]
+offset_left = 1040.0
+offset_top = 519.0
+offset_right = 1118.0
+offset_bottom = 550.0
+text = "Join"
 
-[node name="PlayerField" parent="." instance=ExtResource("2_2pnp5")]
+[node name="PlayBotButton" type="Button" parent="."]
+offset_left = 698.0
+offset_top = 519.0
+offset_right = 821.0
+offset_bottom = 550.0
+text = "Play Computer"
+
+[node name="HostButton" type="Button" parent="."]
+offset_left = 928.0
+offset_top = 519.0
+offset_right = 1006.0
+offset_bottom = 550.0
+text = "Host"
+
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
