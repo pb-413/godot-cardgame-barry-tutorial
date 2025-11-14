@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://boe8fjvquyikp"]
+[gd_scene load_steps=7 format=3 uid="uid://boe8fjvquyikp"]
 
+[ext_resource type="Script" path="res://Scripts/EnemyVariables.gd" id="1_v35et"]
 [ext_resource type="Script" path="res://Scripts/EnemyHand.gd" id="2_6jodh"]
 [ext_resource type="Script" path="res://Scripts/EnemyDeck.gd" id="3_vidf8"]
 [ext_resource type="Texture2D" uid="uid://goc4ty4ti1m5" path="res://Assets/Deck.png" id="4_b4hhd"]
@@ -7,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dbvdok451yk65" path="res://Assets/Slot.png" id="9_32cdx"]
 
 [node name="EnemyScene" type="Node2D"]
+script = ExtResource("1_v35et")
 
 [node name="CardManager" type="Node2D" parent="."]
 

@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://Assets/icon.svg"
 
+[autoload]
+
+EnemyVariables="*res://Scripts/EnemyVariables.gd"
+
 [display]
 
 window/size/viewport_width=1920

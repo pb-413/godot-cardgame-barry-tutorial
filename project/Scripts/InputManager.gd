@@ -10,7 +10,7 @@ const COLLISION_MASK_ENEMY_CARD = 8 # layer/mask 4, value 8.
 var card_manager_reference
 var deck_reference
 var battle_manager_ref
-var inputs_disabled = true  # TODO Game setup/starting state.
+var inputs_disabled = true
 
 
 func _ready() -> void:

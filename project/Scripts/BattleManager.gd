@@ -3,7 +3,6 @@ extends Node
 const EnemyCard = preload("res://Scripts/EnemyCard.gd")
 const SMALL_CARD_SCALE = Vector2(0.5, 0.5)
 const CARD_MOVE_SPEED = 0.2
-const STARTING_HEALTH = 10
 const WAIT_FOR_ATTACK_ANIMATION = 0.15
 const BATTLE_POS_OFFSET = 25
 
@@ -28,9 +27,9 @@ func update_player_hp(num: int):
 
 func update_enemy_hp(num: int):
     enemy_health = num
-    # Enemey Health is no longer accessbile relative to Player Battle manager
-    # TODO Game setup/starting state.
-    #$"../EnemyHealth".text = str(num)
+    EnemyVariables.set_hp(str(num))
+    # TODO Autoload is attempting to access before enemy
+    # scene is loaded.
 
 func damage_enemy_hp(amount: int):
     update_enemy_hp(max(0, enemy_health - amount))
@@ -50,9 +49,6 @@ func _ready() -> void:
     #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot3")
     #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot4")
     #empty_monster_card_slots.append($"../CardSlots/EnemyCardSlot5")
-
-    update_player_hp(STARTING_HEALTH)
-    update_enemy_hp(STARTING_HEALTH)
 
     input_manager_reference = $"../InputManager"
 
