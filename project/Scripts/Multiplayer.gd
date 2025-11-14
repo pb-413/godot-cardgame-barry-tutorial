@@ -41,6 +41,8 @@ func _on_peer_connected(peer_id):
     var enemy_scene = enemy_field_scene.instantiate()
     add_child(enemy_scene)
 
+    get_node("PlayerField").host_set_up()
+
 func _on_host_button_pressed() -> void:
     dissable_buttons()
 
@@ -70,3 +72,5 @@ func _on_join_button_pressed() -> void:
 
     var enemy_scene = enemy_field_scene.instantiate()
     add_child(enemy_scene)
+
+    player_scene.client_set_up()

@@ -1,5 +1,12 @@
 extends Node
 
 
-# Resume tutorial video @ 12:10
-# https://youtu.be/RQTY1KMCf1E?si=GP9PZ9P6ItwlUdu3&t=729
+func host_set_up():
+    pass
+    # Set player and enemy health
+    # Set deck text count and draw initial hand
+    # Make end turn button visible as the host will play first
+    # Enable inputs
+
+func client_set_up():
+    pass

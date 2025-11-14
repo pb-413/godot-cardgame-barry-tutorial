@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cd6kejt11g0ge"]
+[gd_scene load_steps=15 format=3 uid="uid://cd6kejt11g0ge"]
 
 [ext_resource type="Script" path="res://Scripts/BattleManager.gd" id="1_264nd"]
+[ext_resource type="Script" path="res://Scripts/GameSetUp.gd" id="1_ccqw5"]
 [ext_resource type="Script" path="res://Scripts/CardManager.gd" id="1_jvkq7"]
 [ext_resource type="Script" path="res://Scripts/PlayerHand.gd" id="2_m8s8u"]
 [ext_resource type="Script" path="res://Scripts/PlayerDeck.gd" id="3_8rc1f"]
@@ -17,6 +18,7 @@
 size = Vector2(249, 350)
 
 [node name="PlayerField" type="Node2D"]
+script = ExtResource("1_ccqw5")
 
 [node name="BattleManager" type="Node" parent="."]
 script = ExtResource("1_264nd")
