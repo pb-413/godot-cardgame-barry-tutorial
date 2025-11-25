@@ -40,7 +40,7 @@ func dissable_buttons():
 func _on_peer_connected(peer_id):
     var enemy_scene = enemy_field_scene.instantiate()
     add_child(enemy_scene)
-
+    await enemy_scene.ready  # bugfix: using autoloader instead of tree lookup.
     get_node("PlayerField").host_set_up()
 
 func _on_host_button_pressed() -> void:
