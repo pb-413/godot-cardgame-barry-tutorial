@@ -28,8 +28,7 @@ func update_player_hp(num: int):
 func update_enemy_hp(num: int):
     enemy_health = num
     EnemyVariables.set_hp(str(num))
-    # TODO Autoload is attempting to access before enemy
-    # scene is loaded.
+
 
 func damage_enemy_hp(amount: int):
     update_enemy_hp(max(0, enemy_health - amount))

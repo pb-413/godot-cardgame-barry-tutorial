@@ -72,5 +72,5 @@ func _on_join_button_pressed() -> void:
 
     var enemy_scene = enemy_field_scene.instantiate()
     add_child(enemy_scene)
-
+    await enemy_scene.ready
     player_scene.client_set_up()

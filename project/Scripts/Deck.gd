@@ -19,9 +19,19 @@ func _ready():
     $RichTextLabel.text = str(deck.size())
     card_database_reference = load(CARD_DATABASE_PATH).data
 
-    # TODO Game setup/starting state.
-    # for i in range(STARTING_HAND_SIZE):
-    #     draw_card()
+
+func draw_initial_hand():
+    await get_tree().create_timer(1.0).timeout
+    for i in range(STARTING_HAND_SIZE):
+        _draw_here_and_for_peers_enemy()
+        rpc("_draw_here_and_for_peers_enemy")
+        # draw_card()
+
+
+@rpc("any_peer")
+func _draw_here_and_for_peers_enemy():
+    EnemyVariables.draw_card()
+    draw_card()
 
 
 func draw_card() -> Variant:

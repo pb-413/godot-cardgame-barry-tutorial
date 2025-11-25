@@ -20,4 +20,9 @@ func host_set_up():
 
 
 func client_set_up():
-    pass
+    # Set player and enemy health
+    $BattleManager.update_player_hp(STARTING_HEALTH)
+    $BattleManager.update_enemy_hp(STARTING_HEALTH)
+
+    # Set deck text count and draw initial hand
+    $PlayerDeck.draw_initial_hand()
